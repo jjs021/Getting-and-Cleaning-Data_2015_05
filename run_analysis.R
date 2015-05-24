@@ -656,8 +656,8 @@ columns.names <- c(
   "Activity"
 )
 
-names(data.merged) <- columns.names
-names(data.limited) <- columns.names[columns.limited]
+setnames(data.merged, columns.names)
+setnames(data.limited, columns.names[columns.limited])
 
 # Assignment step 5: From the data set in step 4, creates a second,
 #                    independent tidy data set with the average of each
