@@ -27,10 +27,10 @@ A description of the cleaning done to the data.
 	angle(X,gravityMean)
 	angle(Y,gravityMean)
 	angle(Z,gravityMean)
-	Activity Labels : 1:6
+	Activity: the type of activity the subject performed. assigned value 1:6
 
 
-Activity Labels definitions:
+Activity definitions:
 '1. `WALKING`
 '2. `WALKING_UPSTAIRS`
 '3. `WALKING_DOWNSTAIRS`
