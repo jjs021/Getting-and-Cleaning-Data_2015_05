@@ -109,6 +109,8 @@ data.limited$Activity <- revalue(as.character(data.limited$Activity),
 # for the use of fBodyBody* which is somewhat confusing to me. Is it a repeated
 # typo? I've changed all fBodyBody to just fBody.
 
+# This step affects `data.merged` and `data.limited`
+
 columns.names <- c(
   "Subject",
   "tBodyAcc-mean()-X",
@@ -681,3 +683,9 @@ setnames(data.limited, columns.names[columns.limited])
 # Assignment step 5: From the data set in step 4, creates a second,
 #                    independent tidy data set with the average of each
 #                    variable for each activity and each subject.
+
+# The output of this step is a data set named `data.means` based on `data.limited`
+
+data.means <- data.limited[, lapply(.SD,mean),
+                           by="Subject,Activity"][order(Subject,Activity)]
+
