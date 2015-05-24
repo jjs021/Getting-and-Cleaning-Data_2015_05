@@ -12,3 +12,8 @@ The code written for the project, run_analysis.R does these five tasks.
   -Appropriately labels the data set with descriptive variable names. 
   -From the data set in step 4, creates a second, independent tidy data set with the average of each variable for     each activity and each subject.
 
+CodeBook.md contains all the variables, their descriptions and the detailed information on the data transformation.
+
+Output of the run_analsysis.R is saved in xxx.txt
+  
+
