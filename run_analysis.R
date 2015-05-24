@@ -6,7 +6,7 @@
 #   install.packages("data.table")
 
 # Load packages
-require("data.table")
+require("data.table", "plyr")
 
 # Setup paths
 
@@ -67,9 +67,9 @@ columns.limited <-
     346:351, # fBodyAccJerk         mean(X,Y,Z) std(X,Y,Z)
     425:430, # fBodyGyro            mean(X,Y,Z) std(X,Y,Z)
     504,505, # fBodyAccMag          mean        std
-    517,518, # fBodyBodyAccJerkMag  mean        std
-    530,531, # fBodyBodyGyroMag     mean        std
-    543,544, # fBodyBodyGyroJerkMag mean        std
+    517,518, # fBodyAccJerkMag  mean        std
+    530,531, # fBodyGyroMag     mean        std
+    543,544, # fBodyGyroJerkMag mean        std
     556,     # angle(tBodyAccMean,gravity)
     557,     # angle(tBodyAccJerkMean),gravityMean)
     558,     # angle(tBodyGyroMean,gravityMean)
@@ -79,16 +79,35 @@ columns.limited <-
     562,     # angle(Z,gravityMean)
     563      # Activity Labels
   )
-data.limited <- data.merged[, columns.limited]
+data.limited <- data.merged[, columns.limited, with = FALSE]
 
 # Assignment step 3: Uses descriptive activity names to name the activities in
 #                    the data set
+
+# This step affects `data.merged` and `data.limited`
+
+activity.mapping = c(
+  "1" = "Walking",
+  "2" = "Walking Upstairs",
+  "3" = "Walking Downstairs",
+  "4" = "Sitting",
+  "5" = "Standing",
+  "6" = "Laying"
+)
+setnames(data.merged, c("Subject", names(data.merged)[2:562], "Activity"))
+data.merged$Activity  <- revalue(as.character(data.merged$Activity),
+                                 activity.mapping)
+setnames(data.limited, c("Subject", names(data.limited)[2:74], "Activity"))
+data.limited$Activity <- revalue(as.character(data.limited$Activity),
+                                 activity.mapping)
+
 # Assignment step 4: Appropriately labels the data set with descriptive
 #                    variable names. 
 
 # I have made the assumption that the data descriptions given in
-# UCI HAR Dataset/features.txt is sufficiently discriptive.
-# Honestly the use of fBodyBody* is somewhat confusing to me.
+# UCI HAR Dataset/features.txt are sufficiently descriptive, except
+# for the use of fBodyBody* which is somewhat confusing to me. Is it a repeated
+# typo? I've changed all fBodyBody to just fBody.
 
 columns.names <- c(
   "Subject",
@@ -607,45 +626,45 @@ columns.names <- c(
   "fBodyAccMag-meanFreq()",
   "fBodyAccMag-skewness()",
   "fBodyAccMag-kurtosis()",
-  "fBodyBodyAccJerkMag-mean()",
-  "fBodyBodyAccJerkMag-std()",
-  "fBodyBodyAccJerkMag-mad()",
-  "fBodyBodyAccJerkMag-max()",
-  "fBodyBodyAccJerkMag-min()",
-  "fBodyBodyAccJerkMag-sma()",
-  "fBodyBodyAccJerkMag-energy()",
-  "fBodyBodyAccJerkMag-iqr()",
-  "fBodyBodyAccJerkMag-entropy()",
-  "fBodyBodyAccJerkMag-maxInds",
-  "fBodyBodyAccJerkMag-meanFreq()",
-  "fBodyBodyAccJerkMag-skewness()",
-  "fBodyBodyAccJerkMag-kurtosis()",
-  "fBodyBodyGyroMag-mean()",
-  "fBodyBodyGyroMag-std()",
-  "fBodyBodyGyroMag-mad()",
-  "fBodyBodyGyroMag-max()",
-  "fBodyBodyGyroMag-min()",
-  "fBodyBodyGyroMag-sma()",
-  "fBodyBodyGyroMag-energy()",
-  "fBodyBodyGyroMag-iqr()",
-  "fBodyBodyGyroMag-entropy()",
-  "fBodyBodyGyroMag-maxInds",
-  "fBodyBodyGyroMag-meanFreq()",
-  "fBodyBodyGyroMag-skewness()",
-  "fBodyBodyGyroMag-kurtosis()",
-  "fBodyBodyGyroJerkMag-mean()",
-  "fBodyBodyGyroJerkMag-std()",
-  "fBodyBodyGyroJerkMag-mad()",
-  "fBodyBodyGyroJerkMag-max()",
-  "fBodyBodyGyroJerkMag-min()",
-  "fBodyBodyGyroJerkMag-sma()",
-  "fBodyBodyGyroJerkMag-energy()",
-  "fBodyBodyGyroJerkMag-iqr()",
-  "fBodyBodyGyroJerkMag-entropy()",
-  "fBodyBodyGyroJerkMag-maxInds",
-  "fBodyBodyGyroJerkMag-meanFreq()",
-  "fBodyBodyGyroJerkMag-skewness()",
-  "fBodyBodyGyroJerkMag-kurtosis()",
+  "fBodyAccJerkMag-mean()",
+  "fBodyAccJerkMag-std()",
+  "fBodyAccJerkMag-mad()",
+  "fBodyAccJerkMag-max()",
+  "fBodyAccJerkMag-min()",
+  "fBodyAccJerkMag-sma()",
+  "fBodyAccJerkMag-energy()",
+  "fBodyAccJerkMag-iqr()",
+  "fBodyAccJerkMag-entropy()",
+  "fBodyAccJerkMag-maxInds",
+  "fBodyAccJerkMag-meanFreq()",
+  "fBodyAccJerkMag-skewness()",
+  "fBodyAccJerkMag-kurtosis()",
+  "fBodyGyroMag-mean()",
+  "fBodyGyroMag-std()",
+  "fBodyGyroMag-mad()",
+  "fBodyGyroMag-max()",
+  "fBodyGyroMag-min()",
+  "fBodyGyroMag-sma()",
+  "fBodyGyroMag-energy()",
+  "fBodyGyroMag-iqr()",
+  "fBodyGyroMag-entropy()",
+  "fBodyGyroMag-maxInds",
+  "fBodyGyroMag-meanFreq()",
+  "fBodyGyroMag-skewness()",
+  "fBodyGyroMag-kurtosis()",
+  "fBodyGyroJerkMag-mean()",
+  "fBodyGyroJerkMag-std()",
+  "fBodyGyroJerkMag-mad()",
+  "fBodyGyroJerkMag-max()",
+  "fBodyGyroJerkMag-min()",
+  "fBodyGyroJerkMag-sma()",
+  "fBodyGyroJerkMag-energy()",
+  "fBodyGyroJerkMag-iqr()",
+  "fBodyGyroJerkMag-entropy()",
+  "fBodyGyroJerkMag-maxInds",
+  "fBodyGyroJerkMag-meanFreq()",
+  "fBodyGyroJerkMag-skewness()",
+  "fBodyGyroJerkMag-kurtosis()",
   "angle(tBodyAccMean,gravity)",
   "angle(tBodyAccJerkMean),gravityMean)",
   "angle(tBodyGyroMean,gravityMean)",
