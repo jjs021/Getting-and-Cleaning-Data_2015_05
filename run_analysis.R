@@ -4,14 +4,16 @@
 # and expanded it as a subdirectory named "UCI HAR Dataset".
 # Also you will have once run:
 #   install.packages("data.table")
+#   install.packages("plyr")
 
 # Load packages
-require("data.table", "plyr")
+require("data.table")
+require("plyr")
 
 # Setup paths
 
 # IF you need to set a working directory, do it below like:
-setwd("/Users/mmarkets/Desktop/courseraHW/Getting-and-Cleaning-Data_2015_05/")
+# setwd("/Users/mmarkets/Desktop/courseraHW/Getting-and-Cleaning-Data_2015_05/")
 
 # Before reads, we'll change directories, having spaces in fread file names
 # means something special about executing the file or command.
@@ -47,7 +49,7 @@ data.merged <- cbind(
 setwd("..")
 
 # Assignment step 2: Extracts only the measurements on the mean and standard
-#                    deviation for each measurement. 
+#                    deviation for each measurement.
 
 # The output of this step is a data set named `data.limited`
 
@@ -102,7 +104,7 @@ data.limited$Activity <- revalue(as.character(data.limited$Activity),
                                  activity.mapping)
 
 # Assignment step 4: Appropriately labels the data set with descriptive
-#                    variable names. 
+#                    variable names.
 
 # I have made the assumption that the data descriptions given in
 # UCI HAR Dataset/features.txt are sufficiently descriptive, except
@@ -688,4 +690,3 @@ setnames(data.limited, columns.names[columns.limited])
 
 data.means <- data.limited[, lapply(.SD,mean),
                            by="Subject,Activity"][order(Subject,Activity)]
-
