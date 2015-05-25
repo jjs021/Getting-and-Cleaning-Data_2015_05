@@ -55,20 +55,20 @@ setwd("..")
 
 columns.limited <-
   c(1,       # Subject
-    2:7,     # tBodyAcc             mean(X,Y,Z) std(X,Y,Z)
-    42:47,   # tGravityAcc          mean(X,Y,Z) std(X,Y,Z)
-    82:87,   # tBodyAccJerk         mean(X,Y,Z) std(X,Y,Z)
-    122:127, # tBodyGyro            mean(X,Y,Z) std(X,Y,Z)
-    162:167, # tBodyGyroJerk        mean(X,Y,Z) std(X,Y,Z)
-    202,203, # tBodyAccMag          mean        std
-    215,216, # tGravityAccMag       mean        std
-    228,229, # tBodyAccJerkMag      mean        std
-    241,242, # tBodyGyroMag         mean        std
-    254,255, # tBodyGyroJerkMag     mean        std
-    267:272, # fBodyAcc             mean(X,Y,Z) std(X,Y,Z)
-    346:351, # fBodyAccJerk         mean(X,Y,Z) std(X,Y,Z)
-    425:430, # fBodyGyro            mean(X,Y,Z) std(X,Y,Z)
-    504,505, # fBodyAccMag          mean        std
+    2:7,     # tBodyAcc         mean(X,Y,Z) std(X,Y,Z)
+    42:47,   # tGravityAcc      mean(X,Y,Z) std(X,Y,Z)
+    82:87,   # tBodyAccJerk     mean(X,Y,Z) std(X,Y,Z)
+    122:127, # tBodyGyro        mean(X,Y,Z) std(X,Y,Z)
+    162:167, # tBodyGyroJerk    mean(X,Y,Z) std(X,Y,Z)
+    202,203, # tBodyAccMag      mean        std
+    215,216, # tGravityAccMag   mean        std
+    228,229, # tBodyAccJerkMag  mean        std
+    241,242, # tBodyGyroMag     mean        std
+    254,255, # tBodyGyroJerkMag mean        std
+    267:272, # fBodyAcc         mean(X,Y,Z) std(X,Y,Z)
+    346:351, # fBodyAccJerk     mean(X,Y,Z) std(X,Y,Z)
+    425:430, # fBodyGyro        mean(X,Y,Z) std(X,Y,Z)
+    504,505, # fBodyAccMag      mean        std
     517,518, # fBodyAccJerkMag  mean        std
     530,531, # fBodyGyroMag     mean        std
     543,544, # fBodyGyroJerkMag mean        std
@@ -79,7 +79,7 @@ columns.limited <-
     560,     # angle(X,gravityMean)
     561,     # angle(Y,gravityMean)
     562,     # angle(Z,gravityMean)
-    563      # Activity Labels
+    563      # Activity labels
   )
 data.limited <- data.merged[, columns.limited, with = FALSE]
 
@@ -686,7 +686,7 @@ setnames(data.limited, columns.names[columns.limited])
 #                    independent tidy data set with the average of each
 #                    variable for each activity and each subject.
 
-# The output of this step is a data set named `data.means` based on `data.limited`
+# The output of this step is the data set `data.means` based on `data.limited`
 
 data.means <- data.limited[, lapply(.SD,mean),
                            by="Subject,Activity"][order(Subject,Activity)]
