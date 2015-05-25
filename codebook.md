@@ -4,7 +4,7 @@ A description of the cleaning done to the data, and its meaning.
 Contents:
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 -->
 - [Codebook](#codebook)
-	- [Running `run_analysis.R` RE: your workspace](#running-runanalysisr-re-your-workspace)
+	- [Running `run_analysis.R` RE: your workspace](#running-run_analysisr-re-your-workspace)
 	- [The columns of `data.limited` and `data.means`](#the-columns-of-datalimited-and-datameans)
 	- [Activity label definitions](#activity-label-definitions)
 <!-- /TOC -->
