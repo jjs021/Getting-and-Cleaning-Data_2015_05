@@ -7,6 +7,7 @@ Contents:
 	- [Running `run_analysis.R` RE: your workspace](#running-run_analysisr-re-your-workspace)
 	- [The columns of `data.limited` and `data.means`](#the-columns-of-datalimited-and-datameans)
 	- [Activity label definitions](#activity-label-definitions)
+
 <!-- /TOC -->
 
 ## Running `run_analysis.R` RE: your workspace
